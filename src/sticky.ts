@@ -1,46 +1,46 @@
 import { nextTick } from "vue-demi";
 
-export const StickyNamespace = '@@vue-sticky-directive';
+export const StickyNamespace = "@@vue-sticky-directive";
 const events = [
-  'resize',
-  'scroll',
-  'touchstart',
-  'touchmove',
-  'touchend',
-  'pageshow',
-  'load',
+  "resize",
+  "scroll",
+  "touchstart",
+  "touchmove",
+  "touchend",
+  "pageshow",
+  "load",
 ];
 
 const stylePropWithPixel = [
-  'width',
-  'top',
-  'left',
-  'right',
-  'bottom',
-  'paddingTop',
+  "width",
+  "top",
+  "left",
+  "right",
+  "bottom",
+  "paddingTop",
 ];
 
 export enum StickySide {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  BOTH = 'both'
+  TOP = "top",
+  BOTTOM = "bottom",
+  BOTH = "both",
 }
 
 interface CallbackState {
-  top: boolean,
-  bottom: boolean,
-  sticked: boolean,
+  top: boolean
+  bottom: boolean
+  sticked: boolean
 }
 
-type Listeners = () => void
-type CallbackArrow = (state?: CallbackState) => void
+type Listeners = () => void;
+type CallbackArrow = (state?: CallbackState) => void;
 
 export interface StickyOptions {
-  topOffset?: number,
-  bottomOffset?: number,
-  side?: StickySide,
-  zIndex?: number,
-  on?: CallbackArrow,
+  topOffset?: number
+  bottomOffset?: number
+  side?: StickySide
+  zIndex?: number
+  on?: CallbackArrow
 }
 
 const DefaultOptions = {
@@ -52,18 +52,18 @@ const DefaultOptions = {
   on: () => {},
 };
 
-type RecordStyle = Record<string, string | number>
-type RecordClassNames = Record<string, boolean>
+type RecordStyle = Record<string, string | number>;
+type RecordClassNames = Record<string, boolean>;
 
-const convertProp = (name: string, prop: string | number) => {
-  if (typeof prop === 'string') {
+function convertProp(name: string, prop: string | number) {
+  if (typeof prop === "string") {
     return prop;
   }
   prop = prop.toString(10);
   return stylePropWithPixel.includes(name) ? `${prop}px` : prop;
 }
 
-const batchStyle = (el?: HTMLElement | null, style: RecordStyle = {}, className: RecordClassNames = {}) => {
+function batchStyle(el?: HTMLElement | null, style: RecordStyle = {}, className: RecordClassNames = {}) {
   if (!el) {
     return;
   }
@@ -77,14 +77,14 @@ const batchStyle = (el?: HTMLElement | null, style: RecordStyle = {}, className:
       el.classList.remove(k);
     }
   }
-};
+}
 
 class Sticky {
   private readonly el: HTMLElement;
   private readonly containerEl: HTMLElement;
   private readonly placeholderEl: HTMLElement;
   private listeners: Listeners[] = [];
-  private isPending: boolean = false;
+  private isPending = false;
   private state;
   private callbackState: CallbackState;
   private options = DefaultOptions;
@@ -113,17 +113,17 @@ class Sticky {
     this.containerEl = this.getContainerEl();
 
     const parent = this.el.parentNode || this.containerEl;
-    this.placeholderEl = document.createElement('div');
+    this.placeholderEl = document.createElement("div");
     parent.insertBefore(this.placeholderEl, this.el);
 
-    this.setListeners().then();
+    this.setListeners().then(() => {}, () => {});
   }
 
   private setOptions(options: StickyOptions = {}) {
-    const side =
-      options.side && [StickySide.TOP, StickySide.BOTTOM, StickySide.BOTH].includes(options.side as StickySide) ?
-        options.side :
-        StickySide.TOP;
+    const side
+      = (options.side && [StickySide.TOP, StickySide.BOTTOM, StickySide.BOTH].includes(options.side))
+        ? options.side
+        : StickySide.TOP;
     this.options = {
       topOffset: Number(options.topOffset) || DefaultOptions.topOffset,
       bottomOffset: Number(options.bottomOffset) || DefaultOptions.bottomOffset,
@@ -131,7 +131,7 @@ class Sticky {
       shouldBottomSticky: side === StickySide.BOTTOM || side === StickySide.BOTH,
       zIndex: Number(options.zIndex) || DefaultOptions.zIndex,
       on: options.on || DefaultOptions.on,
-    }
+    };
   }
 
   private async setListeners() {
@@ -141,11 +141,11 @@ class Sticky {
     const fn = this.update.bind(this);
     await nextTick(() => {
       const containers = [window, this.containerEl];
-      events.forEach(event => {
-        containers.forEach(container => {
+      events.forEach((event) => {
+        containers.forEach((container) => {
           this.listeners.push(() => container?.removeEventListener(event, fn));
           container?.addEventListener(event, fn, { passive: true });
-        })
+        });
       });
     });
   }
@@ -192,10 +192,10 @@ class Sticky {
       return false;
     }
 
-    const fromBottom =
-      window.innerHeight -
-      this.state.placeholderElTop -
-      this.state.height;
+    const fromBottom
+      = window.innerHeight
+      - this.state.placeholderElTop
+      - this.state.height;
     const fromTop = window.innerHeight - this.state.containerElTop;
 
     const topBreakpoint = this.options.topOffset;
@@ -222,11 +222,11 @@ class Sticky {
 
   private fireEvents() {
     if (
-      typeof this.options.on === 'function' &&
-      (this.callbackState.top !== this.state.isTopSticky ||
-        this.callbackState.bottom !== this.state.isBottomSticky ||
-        this.callbackState.sticked !==
-        (this.state.isTopSticky || this.state.isBottomSticky))
+      typeof this.options.on === "function"
+      && (this.callbackState.top !== this.state.isTopSticky
+        || this.callbackState.bottom !== this.state.isBottomSticky
+        || this.callbackState.sticked
+        !== (this.state.isTopSticky || this.state.isBottomSticky))
     ) {
       this.callbackState = {
         top: this.state.isTopSticky,
@@ -240,27 +240,27 @@ class Sticky {
   private updateElements() {
     const placeholderStyle: RecordStyle = { paddingTop: 0 };
     const elStyle: RecordStyle = {
-      position: 'static',
-      top: 'auto',
-      bottom: 'auto',
-      left: 'auto',
-      width: 'auto',
+      position: "static",
+      top: "auto",
+      bottom: "auto",
+      left: "auto",
+      width: "auto",
       zIndex: this.options.zIndex,
     };
-    const placeholderClassName: RecordClassNames = { 'vue-sticky-placeholder': true };
+    const placeholderClassName: RecordClassNames = { "vue-sticky-placeholder": true };
     const elClassName: RecordClassNames = {
-      'vue-sticky-el': true,
-      'top-sticky': false,
-      'bottom-sticky': false,
+      "vue-sticky-el": true,
+      "top-sticky": false,
+      "bottom-sticky": false,
     };
 
-    const limit =
-      this.state.height +
-      this.options.bottomOffset +
-      this.options.topOffset;
+    const limit
+      = this.state.height
+      + this.options.bottomOffset
+      + this.options.topOffset;
 
     if (this.state.isTopSticky || this.state.isBottomSticky) {
-      elStyle.position = 'fixed';
+      elStyle.position = "fixed";
       elStyle.left = this.state.xOffset;
       elStyle.width = this.state.width;
       placeholderStyle.paddingTop = this.state.height;
@@ -269,7 +269,7 @@ class Sticky {
     }
 
     if (this.state.isTopSticky) {
-      elClassName['top-sticky'] = true;
+      elClassName["top-sticky"] = true;
 
       elStyle.top = this.options.topOffset;
       const bottomLimit = this.state.containerElBottom - limit;
@@ -279,7 +279,7 @@ class Sticky {
     }
 
     if (this.state.isBottomSticky) {
-      elClassName['bottom-sticky'] = true;
+      elClassName["bottom-sticky"] = true;
 
       elStyle.bottom = this.options.bottomOffset;
       const topLimit = window.innerHeight - this.state.containerElTop - limit;
@@ -295,22 +295,22 @@ class Sticky {
   }
 
   private resetElement() {
-    ['position', 'top', 'bottom', 'left', 'width', 'zIndex'].forEach(attr => {
+    ["position", "top", "bottom", "left", "width", "zIndex"].forEach((attr) => {
       this.el.style.removeProperty(attr);
     });
-    this.el.classList.remove('bottom-sticky', 'top-sticky');
+    this.el.classList.remove("bottom-sticky", "top-sticky");
     this.placeholderEl?.parentNode?.removeChild(this.placeholderEl);
   }
 
   private getContainerEl() {
     let node = this.el.parentElement;
     while (
-      node &&
-      node.tagName !== 'HTML' &&
-      node.tagName !== 'BODY' &&
-      node.nodeType === 1
-      ) {
-      if (node.hasAttribute('sticky-container')) {
+      node
+      && node.tagName !== "HTML"
+      && node.tagName !== "BODY"
+      && node.nodeType === 1
+    ) {
+      if (node.hasAttribute("sticky-container")) {
         return node;
       }
       node = node.parentElement;

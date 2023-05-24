@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from "url";
+import { URL, fileURLToPath } from "node:url";
 
 import { defineConfig } from "vite";
 
@@ -36,7 +36,7 @@ export default defineConfig({
       entry: "./src/index.ts",
       formats: ["es", "cjs"],
       name: "vue-sticky-directive-ts",
-      fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
+      fileName: format => (format === "es" ? "index.js" : "index.cjs"),
     },
     rollupOptions: {
       external: ["vue"],
