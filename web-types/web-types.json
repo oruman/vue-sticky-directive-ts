@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/web-types",
-  "name": "sticky-directive",
+  "name": "vue-sticky-directive",
   "version": "0.0.11",
   "contributions": {
     "html": {
