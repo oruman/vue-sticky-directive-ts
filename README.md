@@ -1,21 +1,26 @@
 # vue-sticky-directive
 
-vue-sticky-directive is a powerful vue directive make element sticky.
+vue-sticky-directive-ts is a powerful vue directive make element sticky and fork of [vue-sticky-directive](https://www.npmjs.com/package/vue-sticky-directive)
 
 # Install
-
+Using npm:
 ```Bash
-npm install vue-sticky-directive --save
+npm install vue-sticky-directive-ts --save
+```
+
+Using yarn:
+```Bash
+yarn add vue-sticky-directive-ts
 ```
 
 ES2015
 ```JavaScript
 // register globally
-import Sticky from 'vue-sticky-directive'
+import Sticky from 'vue-sticky-directive-ts'
 Vue.use(Sticky)
 
 // or for a single instance
-import Sticky from 'vue-sticky-directive'
+import Sticky from 'vue-sticky-directive-ts'
 new Vue({
   directives: {Sticky}
 })

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/web-types",
+  "name": "sticky-directive",
+  "version": "0.0.11",
+  "contributions": {
+    "html": {
+      "vue-directives": [
+        {
+          "name": "sticky",
+          "description": "Directive for Sticky-element",
+          "type": "object"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "sticky-container",
+          "description": "Container wrapper for sticky block",
+          "value": {
+            "required": false
+          }
+        }
+      ]
+    }
+  }
+}
