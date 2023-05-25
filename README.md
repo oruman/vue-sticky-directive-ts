@@ -2,6 +2,8 @@
 
 vue-sticky-directive-ts is a powerful vue directive make element sticky and fork of [vue-sticky-directive](https://www.npmjs.com/package/vue-sticky-directive)
 
+[![NPM](https://nodei.co/npm/vue-sticky-directive-ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vue-sticky-directive-ts/)
+
 # Install
 Using npm:
 ```Bash
