@@ -1,4 +1,4 @@
-# vue-sticky-directive
+# vue-sticky-directive-ts
 
 vue-sticky-directive-ts is a powerful vue directive make element sticky and fork of [vue-sticky-directive](https://www.npmjs.com/package/vue-sticky-directive)
 
