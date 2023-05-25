@@ -42,6 +42,7 @@ jobs:
         with:
           node-version: 16
       - run: yarn install --frozen-lockfile
+      - run: yarn build
       - run: mkdir archive
       - run: zip -r -j -9 archive/artifacts.zip dist
       - run: tar -czf archive/artifacts.tar.gz dist --transofrm='s/dist\///g'
