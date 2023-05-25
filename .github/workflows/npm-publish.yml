@@ -30,8 +30,18 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build
       #- run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      #  env:
+      #    NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+  artifacts:
+    needs: [build, publish-npm]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn install --frozen-lockfile
       - run: mkdir archive
       - run: zip -r -j -9 archive/artifacts.zip dist
       - run: tar -czf archive/artifacts.tar.gz dist --transofrm='s/dist\///g'
