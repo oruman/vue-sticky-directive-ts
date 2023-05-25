@@ -5,7 +5,8 @@ node_modules
 .DS_Store
 dist
 vue-sticky-directive.js
-#package-lock.json
+package-lock.json
+yarn.lock
 
 # Editor directories and files
 .vscode/*
