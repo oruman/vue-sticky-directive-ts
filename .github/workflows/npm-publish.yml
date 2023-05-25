@@ -45,7 +45,7 @@ jobs:
       - run: yarn build
       - run: mkdir archive
       - run: zip -r -j -9 archive/artifacts.zip dist
-      - run: cd dist && tar -czf ../archive/artifacts.tar.gz . && cd ../
+      - run: cd dist && tar -czf ../archive/artifacts.tar.gz * && cd ../
       - uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
