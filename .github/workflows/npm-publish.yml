@@ -34,7 +34,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - run: mkdir archive
       - run: zip -r -j -9 archive/artifacts.zip dist
-      - run: tar -C dist -czf archive/artifacts.tar.gz ./
+      - run: tar -czf archive/artifacts.tar.gz dist --transofrm='s/dist\///g'
       - uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
