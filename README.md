@@ -48,7 +48,7 @@ In styles set _position_ for `sticky-container`.
 # Options
 * `topOffset`_(number)_ - set the top breakpoint offset (default: `0`)
 * `bottomOffset`_(number)_ - set the top breakpoint offset (default: `0`)
-* `side`_(string)_ - decide which side should be sticky, you can set `top`、`bottom` or `both` (default: `top`)
+* `side`_(string)_ - decide which side should be sticky, you can set `top`,`bottom` or `both` (default: `top`)
 * `zIndex`_(number)_ - to set the z-index of element to stick
 * `on` _(function)_ - callback when sticky and release, receiveing 1 argument with object indicating the state, like:
 
