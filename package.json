@@ -11,8 +11,18 @@
   },
   "keywords": [
     "vue",
+    "vue2",
+    "vue 2",
+    "vue3",
+    "vue 3",
     "sticky",
-    "affix"
+    "affix",
+    "stickySidebar",
+    "scrolling",
+    "directive",
+    "JS",
+    "TS",
+    "TypeScript"
   ],
   "exports": {
     ".": "./dist/index.js"
