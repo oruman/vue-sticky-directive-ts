@@ -66,6 +66,4 @@ In styles set _position_ for `sticky-container`.
 
 # License
 
-MIT
-
-
+[MIT](./LICENSE)
